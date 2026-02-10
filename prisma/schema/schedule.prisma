@@ -1,0 +1,30 @@
+model Schedule {
+  id              String            @id @default(uuid(7))
+  startDate       DateTime
+  endDate         DateTime
+  startTime       DateTime
+  endTime         DateTime
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  doctorSchedules DoctorSchedules[]
+  appointments    Appointment[]
+
+  @@map("schedules")
+}
+
+model DoctorSchedules {
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  scheduleId String
+  schedule   Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  isBooked  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([doctorId, scheduleId])
+  @@index([doctorId])
+  @@index([scheduleId])
+  @@map("doctor_schedules")
+}
