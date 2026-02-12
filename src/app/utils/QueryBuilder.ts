@@ -14,13 +14,13 @@ TInclude = Record<string, unknown>
     private skip : number = 0;
     private sortBy : string = 'createdAt';
     private sortOrder : 'asc' | 'desc' = 'desc';
-    private selectFields: Record<string, boolean | undefined> = {};
+    private selectFields: Record<string, boolean> | undefined;
 
 
     constructor(
         private model : PrismaModelDelegate,
         private queryParams : IQueryParams,
-        private config : IQueryConfig
+        private config : IQueryConfig = {}
     ){
         this.query = {
             where : {},
@@ -67,8 +67,10 @@ TInclude = Record<string, unknown>
 
                         return {
                             [relation] : {
-                                [nestedRelation] : {
-                                    [nestedField] : stringFilter
+                                some :{
+                                    [nestedRelation]: {
+                                        [nestedField]: stringFilter
+                                    }
                                 }
                             }
                         }
@@ -102,7 +104,7 @@ TInclude = Record<string, unknown>
     filter() : this {
 
         const { filterableFields } = this.config;
-        const excludedField = ['searchTerm', 'page', 'limit', 'sortBy', 'sortOrder', 'fields', 'includes'];
+        const excludedField = ['searchTerm', 'page', 'limit', 'sortBy', 'sortOrder', 'fields', 'include'];
 
         const filterParams : Record<string, unknown> = {};
 
@@ -124,10 +126,7 @@ TInclude = Record<string, unknown>
 
             const isAllowedField = !filterableFields || filterableFields.length === 0 || filterableFields.includes(key);
 
-            if(!isAllowedField){
-                return;
-            }
-
+            
             // doctorFilterableFields = ['specialties.specialty.title', 'appointmentFee']
             // /doctors?appointmentFee[lt]=100&appointmentFee[gt]=50 => { appointmentFee: { lt: '100', gt: '50' } }
 
@@ -149,41 +148,60 @@ TInclude = Record<string, unknown>
                         countQueryWhere[relation] = {};
                     }
 
-                    queryWhere[relation] = {
-                        [nestedField] : this.parseFilterValue(value)
-                    }
+                    const queryRelation = queryWhere[relation] as Record<string, unknown>;
+                    const countRelation = countQueryWhere[relation] as Record<string, unknown>;
 
-                    countQueryWhere[relation] = {
-                        [nestedField] : this.parseFilterValue(value)
-                    }
+                    queryRelation[nestedField] = this.parseFilterValue(value);
+                    countRelation[nestedField] = this.parseFilterValue(value);
                     return;
-                }else if(parts.length === 3){
+                }
+                else if(parts.length === 3){
                     const [relation, nestedRelation, nestedField] = parts;
 
                     if(!queryWhere[relation]){
-                        queryWhere[relation] = {};
-                        countQueryWhere[relation] = {};
+                        queryWhere[relation] = {
+                            some: {}
+                        };
+                        countQueryWhere[relation] = {
+                            some: {}
+                        };
+                    }
+                    
+                    const queryRelation = queryWhere[relation] as Record<string, unknown>;
+                    const countRelation = countQueryWhere[relation] as Record<string, unknown>;
+
+                    if(!queryRelation.some){
+                        queryRelation.some = {};
+                    }
+                    if(!countRelation.some){
+                        countRelation.some = {};
                     }
 
-                    queryWhere[relation] = {
-                        [nestedRelation] : {
-                            [nestedField] : this.parseFilterValue(value)
-                        }
+                    const querySome = queryRelation.some as Record<string, unknown>;
+                    const countSome = countRelation.some as Record<string, unknown>;
+
+                    if(!querySome[nestedRelation]){
+                        querySome[nestedRelation] = {};
                     }
 
-                    countQueryWhere[relation] = {
-                        [nestedRelation] : {
-                            [nestedField] : this.parseFilterValue(value)
-                        }
+                    if(!countSome[nestedRelation]){
+                        countSome[nestedRelation] = {};
                     }
+
+                    const queryNestedRelation = querySome[nestedRelation] as Record<string, unknown>;
+                    const countNestedRelation = countSome[nestedRelation] as Record<string, unknown>;
+
+                    queryNestedRelation[nestedField] = this.parseFilterValue(value);
+                    countNestedRelation[nestedField] = this.parseFilterValue(value);
+
                     return;
                 }
 
-            }else{
-                queryWhere[key] = this.parseFilterValue(value);
-                countQueryWhere[key] = this.parseFilterValue(value);
+            }
+            if (!isAllowedField) {
                 return;
             }
+
 
             // Range filter parsing
             if(typeof value === 'object' && value !== null && !Array.isArray(value)){
@@ -248,6 +266,10 @@ TInclude = Record<string, unknown>
                     [sortBy] : sortOrder
                 }
             }
+        }else{
+            this.query.orderBy = {
+                [sortBy]: sortOrder
+            }
         }
         return this;
     }
@@ -302,7 +324,7 @@ TInclude = Record<string, unknown>
             }
         })
 
-        const includeParam = this.queryParams.includes as string | undefined;
+        const includeParam = this.queryParams.include as string | undefined;
 
         if(includeParam && typeof includeParam === 'string'){
             const requestedRelations = includeParam.split(",").map(relation => relation.trim());
@@ -367,6 +389,8 @@ TInclude = Record<string, unknown>
                 }else{
                     result[key] = source[key];
                 }
+            }else{
+                result[key] = source[key];
             }
         }
         return result;
