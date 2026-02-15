@@ -1,5 +1,6 @@
 import status from "http-status";
-import { uuidv7 } from "zod/mini";
+// import { uuidv7 } from "zod/mini";
+import { v7 as uuidv7 } from "uuid";
 import { PaymentStatus, Role } from "../../../generated/prisma/enums";
 import { envVars } from "../../config/env";
 import { stripe } from "../../config/stripe.config";
@@ -85,7 +86,7 @@ const bookAppointment = async (payload : IBookAppointmentPayload, user : IReques
                         product_data:{
                             name : `Appointment with Dr. ${doctorData.name}`,
                         },
-                        unit_amount : doctorData.appointmentFee * 120,
+                        unit_amount : doctorData.appointmentFee * 100,
                     },
                     quantity : 1,
                 }
@@ -372,7 +373,7 @@ const initiatePayment = async (appointmentId: string, user : IRequestUser) => {
                     product_data: {
                         name: `Appointment with Dr. ${appointmentData.doctor.name}`,
                     },
-                    unit_amount: appointmentData.doctor.appointmentFee * 120,
+                    unit_amount: appointmentData.doctor.appointmentFee * 100,
                 },
                 quantity: 1,
             }
@@ -382,10 +383,10 @@ const initiatePayment = async (appointmentId: string, user : IRequestUser) => {
             paymentId: appointmentData.payment.id,
         },
 
-        success_url: `${envVars.FRONTEND_URL}/dashboard/payment/payment-success`,
+        success_url: `${envVars.FRONTEND_URL}/dashboard/payment/payment-success?appointment_id=${appointmentData.id}&payment_id=${appointmentData.payment.id}`,
 
         // cancel_url: `${envVars.FRONTEND_URL}/dashboard/payment/payment-failed`,
-        cancel_url: `${envVars.FRONTEND_URL}/dashboard/appointments`,
+        cancel_url: `${envVars.FRONTEND_URL}/dashboard/appointments?error=payment_cancelled`,
     })
 
     return {

@@ -102,6 +102,7 @@ const getScheduleById = async (id: string) => {
     return schedule;
 }
 
+// refactoring - doctor's appointment or booked slot conflict check
 const updateSchedule = async (id: string, payload: IUpdateSchedulePayload) => {
     const { startDate, endDate, startTime, endTime } = payload;
     const startDateTime = new Date(
