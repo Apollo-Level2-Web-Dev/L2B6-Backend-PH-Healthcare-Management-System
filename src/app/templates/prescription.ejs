@@ -1,0 +1,268 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        text-align: center;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        color: #007bff;
+        font-size: 28px;
+        margin-bottom: 5px;
+      }
+
+      .header p {
+        color: #555;
+        font-size: 14px;
+      }
+
+      .greeting {
+        color: #333;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+
+      .content {
+        margin-bottom: 30px;
+      }
+
+      .section {
+        margin-bottom: 25px;
+      }
+
+      .section-title {
+        color: #007bff;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .info-grid {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 5px;
+        border-left: 4px solid #007bff;
+      }
+
+      .info-row {
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .info-row:last-child {
+        margin-bottom: 0;
+      }
+
+      .info-row strong {
+        color: #333;
+        display: inline-block;
+        width: 150px;
+      }
+
+      .info-row span {
+        color: #666;
+      }
+
+      .instructions {
+        background-color: #e8f4f8;
+        padding: 20px;
+        border-radius: 5px;
+        border-left: 4px solid #17a2b8;
+        margin: 20px 0;
+      }
+
+      .instructions-title {
+        color: #17a2b8;
+        font-weight: bold;
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .instructions-content {
+        color: #333;
+        font-size: 14px;
+        line-height: 1.8;
+        white-space: pre-wrap;
+      }
+
+      .pdf-section {
+        background-color: #fff3cd;
+        padding: 15px;
+        border-radius: 5px;
+        border-left: 4px solid #ffc107;
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      .pdf-link {
+        display: inline-block;
+        background-color: #ffc107;
+        color: #333;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      .pdf-link:hover {
+        background-color: #e0a800;
+      }
+
+      .footer {
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+        margin-top: 30px;
+        text-align: center;
+        color: #888;
+        font-size: 12px;
+      }
+
+      .warning {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 12px 30px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>📋 Prescription</h1>
+        <p>PH Healthcare Services - Your Health, Our Priority</p>
+      </div>
+
+      <!-- Greeting -->
+      <div class="greeting">
+        <p>Dear <strong><%= patientName %></strong>,</p>
+        <p style="margin-top: 10px;">
+          Your prescription has been issued. Please review the details below.
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Doctor Information -->
+        <div class="section">
+          <div class="section-title">👨‍⚕️ Doctor Information</div>
+          <div class="info-grid">
+            <div class="info-row">
+              <strong>Doctor Name:</strong>
+              <span><%= doctorName %></span>
+            </div>
+            <div class="info-row">
+              <strong>Specialization:</strong>
+              <span><%= specialization %></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prescription Details -->
+        <div class="section">
+          <div class="section-title">📝 Prescription Details</div>
+          <div class="info-grid">
+            <div class="info-row">
+              <strong>Prescription ID:</strong>
+              <span><%= prescriptionId %></span>
+            </div>
+            <div class="info-row">
+              <strong>Appointment Date:</strong>
+              <span><%= appointmentDate %></span>
+            </div>
+            <div class="info-row">
+              <strong>Issued Date:</strong>
+              <span><%= issuedDate %></span>
+            </div>
+            <% if (followUpDate) { %>
+            <div class="info-row">
+              <strong>Follow-up Date:</strong>
+              <span><%= followUpDate %></span>
+            </div>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="section">
+          <div class="instructions">
+            <div class="instructions-title">💊 Instructions & Medications</div>
+            <div class="instructions-content"><%= instructions %></div>
+          </div>
+        </div>
+
+        <!-- PDF Download -->
+        <div class="pdf-section">
+          <p>📥 <strong>Download Your Prescription PDF</strong></p>
+          <p style="font-size: 12px; color: #666; margin-top: 10px;">
+            Your prescription PDF has been attached to this email. You can also download it using the link below.
+          </p>
+          <% if (pdfUrl) { %>
+          <a href="<%= pdfUrl %>" class="pdf-link">Download PDF</a>
+          <% } %>
+        </div>
+
+        <!-- Important Notes -->
+        <div class="section" style="background-color: #f0f0f0; padding: 15px; border-radius: 5px;">
+          <p style="color: #666; font-size: 13px;">
+            <strong>⚠️ Important:</strong> Please follow all instructions provided by your doctor carefully. If you
+            have any questions or concerns, please contact your healthcare provider immediately.
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>
+          This is an automated email from PH Healthcare Services. Please do not reply to this email. If you have any
+          questions, contact our support team.
+        </p>
+        <p style="margin-top: 10px;">For more information, visit: <strong>https://ph-healthcare.com</strong></p>
+      </div>
+    </div>
+  </body>
+</html>

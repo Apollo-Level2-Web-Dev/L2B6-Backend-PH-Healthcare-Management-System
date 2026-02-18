@@ -4,6 +4,7 @@ model Payment {
     transactionId      String        @db.Uuid() @unique
     stripeEventId       String?         @unique
     status             PaymentStatus @default(UNPAID)
+    invoiceUrl         String?
     paymentGatewayData Json?
     createdAt          DateTime      @default(now())
     updatedAt          DateTime      @updatedAt

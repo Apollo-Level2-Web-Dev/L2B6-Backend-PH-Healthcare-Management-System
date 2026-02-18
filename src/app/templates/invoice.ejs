@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Invoice - PH Healthcare</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .info-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #333;
+            min-width: 150px;
+        }
+
+        .info-value {
+            color: #666;
+            text-align: right;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .details-box {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .details-box p {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .details-box .label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .amount-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 6px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .amount-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .amount-value {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .payment-status {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .download-section {
+            text-align: center;
+            margin: 30px 0;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+
+        .download-btn:hover {
+            background-color: #5568d3;
+        }
+
+        .footer {
+            background-color: #f9f9f9;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .footer p {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 25px 0;
+        }
+
+        @media (max-width: 600px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                flex-direction: column;
+            }
+
+            .info-value {
+                text-align: left;
+                margin-top: 5px;
+            }
+
+            .amount-value {
+                font-size: 28px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>INVOICE</h1>
+            <p>Your Healthcare Payment Receipt</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="greeting">
+                Hello <%= patientName %>,
+            </div>
+
+            <p style="margin-bottom: 20px; color: #666; font-size: 14px;">
+                Your payment for your consultation appointment has been successfully processed. Below is your payment invoice.
+            </p>
+
+            <!-- Invoice Details -->
+            <div class="info-box">
+                <div class="info-row">
+                    <span class="info-label">Invoice ID:</span>
+                    <span class="info-value"><strong><%= invoiceId %></strong></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Transaction ID:</span>
+                    <span class="info-value"><%= transactionId %></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Payment Status:</span>
+                    <span class="info-value" style="color: #28a745; font-weight: 600;">✓ PAID</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Payment Date:</span>
+                    <span class="info-value"><%= paymentDate %></span>
+                </div>
+            </div>
+
+            <!-- Doctor & Appointment Info -->
+            <div class="section-title">Consultation Details</div>
+            <div class="details-grid">
+                <div class="details-box">
+                    <p><span class="label">Doctor:</span></p>
+                    <p><strong><%= doctorName %></strong></p>
+                </div>
+                <div class="details-box">
+                    <p><span class="label">Appointment Date:</span></p>
+                    <p><strong><%= appointmentDate %></strong></p>
+                </div>
+            </div>
+
+            <!-- Amount Section -->
+            <div class="section-title">Payment Summary</div>
+            
+            <div style="background-color: #f9f9f9; padding: 20px; border-radius: 4px; margin-bottom: 20px;">
+                <div class="info-row">
+                    <span class="info-label">Consultation Fee:</span>
+                    <span class="info-value"><strong><%= amount.toFixed(2) %> BDT</strong></span>
+                </div>
+            </div>
+
+            <div class="amount-box">
+                <div class="amount-label">Total Amount Paid</div>
+                <div class="amount-value"><%= amount.toFixed(2) %> BDT</div>
+            </div>
+
+            <div class="payment-status">
+                ✓ Payment Confirmed
+            </div>
+
+            <!-- Download Invoice -->
+            <div class="download-section">
+                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+                    Your invoice PDF is attached to this email for your records.
+                </p>
+                <% if (invoiceUrl) { %>
+                    <a href="<%= invoiceUrl %>" class="download-btn">Download Invoice PDF</a>
+                <% } %>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Additional Info -->
+            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">
+                <strong>Next Steps:</strong><br>
+                Your appointment has been confirmed. Please log in to your dashboard to view appointment details and prepare for your consultation.
+            </p>
+
+            <p style="font-size: 13px; color: #666;">
+                If you have any questions regarding this payment or need assistance, please don't hesitate to contact our support team.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>PH Healthcare</strong></p>
+            <p>Your Health, Our Priority</p>
+            <p style="margin-top: 15px; font-size: 11px; color: #999;">
+                &copy; 2026 PH Healthcare. All rights reserved.
+            </p>
+            <p style="margin-top: 10px;">
+                <a href="https://ph-healthcare.com">Visit our website</a> | 
+                <a href="mailto:support@ph-healthcare.com">Contact Support</a>
+            </p>
+            <p style="margin-top: 15px; font-size: 11px; color: #999;">
+                This is an automatically generated email. Please do not reply directly to this email.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
