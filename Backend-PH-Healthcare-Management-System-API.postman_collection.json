@@ -16,7 +16,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"saminisrar1@gmail.com\",\r\n    \"name\": \"Patient1\",\r\n    \"password\": \"password1234\"\r\n}",
+              "raw": "{\r\n    \"email\": \"saminisrar6@gmail.com\",\r\n    \"name\": \"Patient2\",\r\n    \"password\": \"password1234\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -78,7 +78,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"saminisrar1@gmail.com\",\r\n    \"password\": \"password1234\"\r\n}",
+              "raw": "{\r\n    \"email\": \"saminisrar6@gmail.com\",\r\n    \"password\": \"password1234\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -246,7 +246,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"saminisrar1@gmail.com\",\r\n    \"otp\" : \"096816\"\r\n}",
+              "raw": "{\r\n    \"email\": \"saminisrar6@gmail.com\",\r\n    \"otp\" : \"878159\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -509,7 +509,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:5000/api/v1/doctors",
+              "raw": "http://localhost:5000/api/v1/doctors?gender=MALE",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -535,12 +535,6 @@
                   "key": "searchTerm",
                   "value": "Cardiology",
                   "description": "issue",
-                  "disabled": true
-                },
-                {
-                  "key": "gender",
-                  "value": "FEMALE",
-                  "type": "text",
                   "disabled": true
                 },
                 {
@@ -597,6 +591,10 @@
                   "key": "specialties.specialty.title",
                   "value": "Cardiology2",
                   "disabled": true
+                },
+                {
+                  "key": "gender",
+                  "value": "MALE"
                 }
               ]
             }
@@ -615,7 +613,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"startDate\": \"2026-02-16\",\r\n    \"endDate\": \"2026-02-18\",\r\n    \"startTime\": \"15:00\",\r\n    \"endTime\": \"21:00\"\r\n  }",
+              "raw": "{\r\n    \"startDate\": \"2026-02-19\",\r\n    \"endDate\": \"2026-02-26\",\r\n    \"startTime\": \"15:00\",\r\n    \"endTime\": \"21:00\"\r\n  }",
               "options": {
                 "raw": {
                   "language": "json"
@@ -746,7 +744,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"scheduleIds\": [\r\n    \"019c614a-1b66-7668-9587-ddb75a6f0fe8\",\r\n    \"019c614a-2141-7425-94aa-720140d05be3\",\r\n    \"019c614a-1f1f-76fd-8f56-5f59f4682276\"\r\n  ]\r\n}",
+              "raw": "{\r\n  \"scheduleIds\": [\r\n    \"019c7121-3f29-7416-b849-f1fe5bd70de6\",\r\n    \"019c7121-3ce7-76d9-9fb5-4cc29ead8d04\",\r\n    \"019c7121-3a9f-75ab-963a-5e8b99a4e9bf\"\r\n  ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -903,7 +901,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"doctorId\": \"019c4eef-9c4f-75c5-baa8-5802f28bbbb8\",\r\n  \"scheduleId\": \"019c614a-2141-7425-94aa-720140d05be3\"\r\n}",
+              "raw": "{\r\n  \"doctorId\": \"019c4eef-9c4f-75c5-baa8-5802f28bbbb8\",\r\n  \"scheduleId\": \"019c7121-3a9f-75ab-963a-5e8b99a4e9bf\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1066,6 +1064,331 @@
                 "appointments",
                 "initiate-payment",
                 "019c616c-5889-7636-8a06-92db8fad1bc9"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Patient",
+      "item": [
+        {
+          "name": "Update My Profile",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{ \n\"medicalReports\": [\n    \n    {\n      \"reportId\": \"019c6825-2c50-71cc-9126-7e2e38fa78de\",\n      \"shouldDelete\": true\n    }\n  ] \n\n}",
+                  "description": "\"patientInfo\": {\n    \"name\": \"John Doe\",\n    \"contactNumber\": \"+880-1712345678\",\n    \"address\": \"Dhaka, Bangladesh\"\n  },\n  \"patientHealthData\": {\n    \"gender\": \"MALE\",\n    \"dateOfBirth\": \"1990-05-15\",\n    \"bloodGroup\": \"O_POSITIVE\",\n    \"hasAllergies\": true,\n    \"hasDiabetes\": false,\n    \"height\": \"5.10\",\n    \"weight\": \"75\",\n    \"smokingStatus\": false,\n    \"dietaryPreferences\": \"Vegetarian\",\n    \"pregnancyStatus\": false,\n    \"mentalHealthHistory\": \"None\",\n    \"immunizationStatus\": \"Complete\",\n    \"hasPastSurgeries\": false,\n    \"recentAnxiety\": false,\n    \"recentDepression\": false,\n    \"maritalStatus\": \"Married\"\n  },",
+                  "type": "text",
+                  "uuid": "55cdf127-4b7d-4a5f-996f-6eff2dc9a8ad",
+                  "disabled": true
+                },
+                {
+                  "key": "profilePhoto",
+                  "description": "{\n  \n \"medicalReports\": [\n    \n    {\n      \"reportId\": \"019c6336-829d-777a-bd07-67b93e571d50\",\n      \"shouldDelete\": true\n    }\n  ]\n}",
+                  "type": "file",
+                  "uuid": "4f9c4942-69da-4b3a-945d-54a759ddf945",
+                  "src": "/C:/Users/samin/Downloads/doctor.jpg",
+                  "disabled": true
+                },
+                {
+                  "key": "medicalReports",
+                  "type": "file",
+                  "uuid": "b86fcd7b-fe90-41cb-9ae2-d21bb1bc6535",
+                  "src": [
+                    "/C:/Users/samin/Downloads/CT Scan Report.pdf",
+                    "/C:/Users/samin/Downloads/CBC Blood Test.pdf"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/v1/patients/update-my-profile",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "patients",
+                "update-my-profile"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Precription",
+      "item": [
+        {
+          "name": "Create Prescription",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"appointmentId\": \"019c7167-f36c-75e1-a0da-dd695abd55c6\",\r\n  \"instructions\": \"Take the prescribed medication twice daily after meals. Complete the full course of antibiotics. Avoid alcohol consumption during treatment. Get adequate rest and stay hydrated.\",\r\n  \"followUpDate\": \"2026-02-25\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/v1/prescriptions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "prescriptions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Prescriptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/prescriptions/my-prescriptions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "prescriptions",
+                "my-prescriptions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Prescriptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/prescriptions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "prescriptions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Prescription",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/prescriptions/435564357",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "prescriptions",
+                "435564357"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Prescription",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/prescriptions/34435643567",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "prescriptions",
+                "34435643567"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Review",
+      "item": [
+        {
+          "name": "Create Review",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/reviews",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Reviews",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/reviews/my-reviews",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "reviews",
+                "my-reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Reviews",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/reviews",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Review",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/reviews/34634564356",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "reviews",
+                "34634564356"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Review",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/reviews/34565456",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "reviews",
+                "34565456"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Stats",
+      "item": [
+        {
+          "name": "Get Stats Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/stats",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "stats"
+              ],
+              "query": [
+                {
+                  "key": "gender",
+                  "value": "MALE",
+                  "disabled": true
+                }
               ]
             }
           },
