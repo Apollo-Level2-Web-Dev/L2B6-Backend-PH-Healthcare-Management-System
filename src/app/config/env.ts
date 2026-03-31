@@ -38,6 +38,15 @@ interface EnvConfig {
     },
     SUPER_ADMIN_EMAIL: string;
     SUPER_ADMIN_PASSWORD: string;
+    RAG: {
+        GROQ_API_KEY?: string;
+        HF_API_KEY?: string;
+        GROQ_MODEL: string;
+        EMBEDDING_MODEL: string;
+        CHUNK_SIZE: number;
+        CHUNK_OVERLAP: number;
+        DOC_DIRS: string;
+    }
 }
 
 
@@ -114,6 +123,15 @@ const loadEnvVariables = (): EnvConfig => {
         },
         SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL as string,
         SUPER_ADMIN_PASSWORD: process.env.SUPER_ADMIN_PASSWORD as string,
+        RAG: {
+            GROQ_API_KEY: process.env.GROQ_API_KEY,
+            HF_API_KEY: process.env.HF_API_KEY,
+            GROQ_MODEL: process.env.RAG_GROQ_MODEL || "llama-3.3-70b-versatile",
+            EMBEDDING_MODEL: process.env.RAG_EMBEDDING_MODEL || "sentence-transformers/all-MiniLM-L6-v2",
+            CHUNK_SIZE: Number(process.env.RAG_CHUNK_SIZE || 900),
+            CHUNK_OVERLAP: Number(process.env.RAG_CHUNK_OVERLAP || 120),
+            DOC_DIRS: process.env.RAG_DOC_DIRS || "Tasks",
+        }
     }
 }
 

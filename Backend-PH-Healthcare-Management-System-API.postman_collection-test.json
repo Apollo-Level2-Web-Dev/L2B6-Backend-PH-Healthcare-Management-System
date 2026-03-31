@@ -1072,6 +1072,126 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "RAG",
+      "item": [
+        {
+          "name": "Query Knowledge",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"query\": \"Which doctors are suitable for cardiology consultation?\",\r\n  \"topK\": 5,\r\n  \"minSimilarity\": 0.2,\r\n  \"sourceTypes\": [\r\n    \"DOCTOR\",\r\n    \"SPECIALTY\"\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/v1/rag/query",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "rag",
+                "query"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ingest Document (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"sourceType\": \"DOC_MARKDOWN\",\r\n  \"sourceId\": \"manual/rag-test-doc-1\",\r\n  \"sourceLabel\": \"RAG Manual Test Document\",\r\n  \"content\": \"Cardiology handles heart and blood vessel disorders. Doctors with cardiology specialty diagnose and manage these conditions.\",\r\n  \"metadata\": {\r\n    \"origin\": \"postman\",\r\n    \"category\": \"test\"\r\n  },\r\n  \"chunkSize\": 900,\r\n  \"chunkOverlap\": 120\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/v1/rag/ingest",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "rag",
+                "ingest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reindex Knowledge (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"includeDocs\": true,\r\n  \"includeDb\": true,\r\n  \"sourceTypes\": [\r\n    \"DOC_MARKDOWN\",\r\n    \"DOCTOR\",\r\n    \"SPECIALTY\"\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/v1/rag/reindex",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "rag",
+                "reindex"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get RAG Stats (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/rag/stats",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "rag",
+                "stats"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }
