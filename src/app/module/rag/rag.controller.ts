@@ -4,8 +4,7 @@ import { sendResponse } from "../../shared/sendResponse";
 import status from "http-status";
 import { RAGService } from "./rag.service";
 
-
-const ragService = new RAGService()
+const ragService = new RAGService();
 
 const getStats = async (req: Request, res: Response) => {
   console.log("connected", req.query);
@@ -13,17 +12,44 @@ const getStats = async (req: Request, res: Response) => {
 };
 
 const ingestDoctors = catchAsync(async (req: Request, res: Response) => {
- const result = await ragService.ingestDoctorsData();
+  const result = await ragService.ingestDoctorsData();
 
-  sendResponse(res,{
+  sendResponse(res, {
     success: true,
     httpStatusCode: status.OK,
     message: "Doctors data ingestion completed",
-    data: result
-  })
+    data: result,
+  });
+});
+
+const queryRag = catchAsync(async (req: Request, res: Response) => {
+  const { query, limit, sourceType } = req.body;
+
+  if (!query) {
+    return sendResponse(res, {
+      success: false,
+      httpStatusCode: status.BAD_REQUEST,
+      message: "Query is required",
+    });
+  }
+
+  const result = await ragService.generateAnswer(
+    query,
+    limit ?? 5,
+    sourceType,
+    true,
+  );
+
+  sendResponse(res, {
+    success: true,
+    httpStatusCode: status.OK,
+    message: "Doctors data ingestion completed",
+    data: result,
+  });
 });
 
 export const RagController = {
   getStats,
   ingestDoctors,
+  queryRag,
 };
