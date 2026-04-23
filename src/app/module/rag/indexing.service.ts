@@ -26,7 +26,7 @@ export class IndexingService {
       await prisma.$executeRaw(Prisma.sql`
         INSERT INTO "document_embeddings"
         (
-            "id",
+          "id",
           "chunkKey",
           "sourceType",
           "sourceId",
@@ -38,8 +38,8 @@ export class IndexingService {
         )
         VALUES
         (
-            ${Prisma.raw("gen_random_uuid()")}
-            ${chunkKey},
+          ${Prisma.raw("gen_random_uuid()")},
+          ${chunkKey},
           ${sourceType},
           ${sourceId},
           ${sourceLabel || null},
@@ -50,7 +50,7 @@ export class IndexingService {
         )
         ON CONFLICT ("chunkKey")
         DO UPDATE SET
-            "sourceType" = EXCLUDED."sourceType",
+          "sourceType" = EXCLUDED."sourceType",
           "sourceId" = EXCLUDED."sourceId",
           "sourceLabel" = EXCLUDED."sourceLabel",
           "content" = EXCLUDED."content",
@@ -62,6 +62,7 @@ export class IndexingService {
         `);
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -136,6 +137,7 @@ export class IndexingService {
       };
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 }

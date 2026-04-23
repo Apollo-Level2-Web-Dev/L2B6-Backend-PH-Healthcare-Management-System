@@ -10,7 +10,7 @@ CREATE TABLE "document_embeddings" (
     "sourceLabel" TEXT,
     "content" TEXT NOT NULL,
     "metadata" JSONB,
-    "embedding" vector(384) NOT NULL,
+    "embedding" vector(2048) NOT NULL,
     "isDeleted" BOOLEAN NOT NULL DEFAULT false,
     "deletedAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

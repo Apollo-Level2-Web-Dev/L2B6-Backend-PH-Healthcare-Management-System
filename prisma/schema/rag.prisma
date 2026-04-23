@@ -8,7 +8,7 @@ model DocumentEmbedding {
     content     String
     metadata    Json?
 
-    embedding Unsupported("vector(384)")
+    embedding Unsupported("vector(2048)")
 
     isDeleted Boolean   @default(false)
     deletedAt DateTime?
