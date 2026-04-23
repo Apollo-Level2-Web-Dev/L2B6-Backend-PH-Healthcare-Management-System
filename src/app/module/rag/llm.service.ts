@@ -80,9 +80,9 @@ export class LLMService {
 
       const data = await response.json();
 
-      return data.choice[0].message.content;
+      return data.choices[0].message.content;
     } catch (error) {
-      console.log(error);
+      console.error("Error generating LLM response:", error);
       throw error;
     }
   }

@@ -43,7 +43,7 @@ const queryRag = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     success: true,
     httpStatusCode: status.OK,
-    message: "Doctors data ingestion completed",
+    message: "Answer generated successfully",
     data: result,
   });
 });
