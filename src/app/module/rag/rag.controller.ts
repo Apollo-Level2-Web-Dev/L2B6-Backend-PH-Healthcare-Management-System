@@ -6,10 +6,16 @@ import { RAGService } from "./rag.service";
 
 const ragService = new RAGService();
 
-const getStats = async (req: Request, res: Response) => {
-  console.log("connected", req.query);
-  res.status(200).json({ message: "connected rag apis" });
-};
+const getStats = catchAsync(async (req: Request, res: Response) => {
+  const result = await ragService.getStats();
+
+  sendResponse(res, {
+    success: true,
+    httpStatusCode: status.OK,
+    message: "RAG stats retrieved successfully",
+    data: result,
+  });
+});
 
 const ingestDoctors = catchAsync(async (req: Request, res: Response) => {
   const result = await ragService.ingestDoctorsData();
