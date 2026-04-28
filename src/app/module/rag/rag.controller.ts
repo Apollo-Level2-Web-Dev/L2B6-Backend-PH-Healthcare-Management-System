@@ -6,8 +6,6 @@ import { RAGService } from "./rag.service";
 import { redisService } from "../../lib/redis";
 
 const ragService = new RAGService();
-// Initialize Redis connection (errors will be handled gracefully in the methods)
-redisService.connect().catch(console.error);
 
 const getStats = catchAsync(async (req: Request, res: Response) => {
   const result = await ragService.getStats();
